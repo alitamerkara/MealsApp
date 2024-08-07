@@ -1,6 +1,11 @@
 import { Pressable, View, Text, StyleSheet, Platform } from "react-native";
 
-const CategoryCard = ({ name, color }) => {
+const CategoryCard = ({ name, color, navigation, id }) => {
+  const pressHandler = () => {
+    navigation.navigate("MealOverview", {
+      itemId: id,
+    });
+  };
   return (
     <View style={[styles.gridContainer, { backgroundColor: color }]}>
       <Pressable
@@ -9,6 +14,7 @@ const CategoryCard = ({ name, color }) => {
           styles.container,
           pressed ? styles.buttonPressed : null,
         ]}
+        onPress={pressHandler}
       >
         <View style={styles.innerContainer}>
           <Text style={styles.text}>{name}</Text>
