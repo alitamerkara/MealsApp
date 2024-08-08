@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Categories from "./components/Categories"
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -18,7 +18,12 @@ const AddDrawer= ()=>{
     <Drawer.Navigator screenOptions={{
       headerStyle:{backgroundColor:'#9156ff'},
       headerTintColor:"white",
-      contentStyle:{backgroundColor:'#ccc'}
+      contentStyle:{backgroundColor:'#ccc'},
+      sceneContainerStyle: {backgroundColor:'#ccc'},
+      drawerContentStyle: {backgroundColor:'#9156ff'},
+      drawerInactiveTintColor:"white",
+      drawerActiveTintColor:"blue",
+      drawerActiveBackgroundColor:"white"
     }}>
       <Drawer.Screen name="Categories" component={Categories}/>
       <Drawer.Screen name= "Favorites" component={Favorites}/>
@@ -37,7 +42,7 @@ const AddDrawer= ()=>{
       headerShown:false
     }}/>
     <Stack.Screen name="MealOverview" component={MealOverview}/>
-    <Stack.Screen name="MealDetail" component={MealDetail}/>
+    <Stack.Screen name="MealDetail" component={MealDetail} />
   </Stack.Navigator>
 </NavigationContainer>
   );

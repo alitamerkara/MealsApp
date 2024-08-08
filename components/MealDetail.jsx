@@ -13,13 +13,13 @@ import Entypo from "@expo/vector-icons/Entypo";
 const MealDetail = ({ route, navigation }) => {
   const [active, setActive] = useState(false);
   const id = route.params.id;
-  const handlerPress = () => {
-    setActive((active) => !active);
-    console.log(active);
-  };
   const value = MEALS?.find((item) => {
     return item.id === id;
   });
+  const handlerPress = () => {
+    setActive((active) => !active);
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
