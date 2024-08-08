@@ -1,12 +1,40 @@
-import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+} from "react-native";
 import { MEALS } from "../datas/dummy-data";
+import { useLayoutEffect, useState } from "react";
+import Entypo from "@expo/vector-icons/Entypo";
 
-const MealDetail = ({ route }) => {
+const MealDetail = ({ route, navigation }) => {
+  const [active, setActive] = useState(false);
   const id = route.params.id;
+  const handlerPress = () => {
+    setActive((active) => !active);
+    console.log(active);
+  };
   const value = MEALS?.find((item) => {
     return item.id === id;
   });
-
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <Pressable onPress={handlerPress}>
+            {active ? (
+              <Entypo name="star" size={30} color="white" />
+            ) : (
+              <Entypo name="star-outlined" size={30} color="white" />
+            )}
+          </Pressable>
+        );
+      },
+    });
+  }, [active, navigation, handlerPress]);
   return (
     <ScrollView>
       <View style={styles.container}>
