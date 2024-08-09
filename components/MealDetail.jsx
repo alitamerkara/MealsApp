@@ -7,17 +7,23 @@ import {
   Pressable,
 } from "react-native";
 import { MEALS } from "../datas/dummy-data";
-import { useLayoutEffect, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import Entypo from "@expo/vector-icons/Entypo";
+import { FavoritesContext } from "../store/context/favoritesContext";
 
 const MealDetail = ({ route, navigation }) => {
-  const [active, setActive] = useState(false);
-  const id = route.params.id;
+  const mealId = route.params.id;
   const value = MEALS?.find((item) => {
-    return item.id === id;
+    return item.id === mealId;
   });
+  const FavManage = useContext(FavoritesContext);
+  const check = FavManage.ids.includes(mealId);
   const handlerPress = () => {
-    setActive((active) => !active);
+    if (check) {
+      FavManage.removeFav(mealId);
+    } else {
+      FavManage.addFav(mealId);
+    }
   };
 
   useLayoutEffect(() => {
@@ -25,16 +31,16 @@ const MealDetail = ({ route, navigation }) => {
       headerRight: () => {
         return (
           <Pressable onPress={handlerPress}>
-            {active ? (
-              <Entypo name="star" size={30} color="white" />
-            ) : (
-              <Entypo name="star-outlined" size={30} color="white" />
-            )}
+            <Entypo
+              name={check ? "star" : "star-outlined"}
+              size={30}
+              color="white"
+            />
           </Pressable>
         );
       },
     });
-  }, [active, navigation, handlerPress]);
+  }, [navigation, handlerPress, check]);
   return (
     <ScrollView>
       <View style={styles.container}>

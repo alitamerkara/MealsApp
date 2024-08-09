@@ -6,6 +6,7 @@ import MealOverview from "./components/MealOverview";
 import MealDetail from "./components/MealDetail";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Favorites from "./components/Favorites";
+import FavoritesProvider from "./store/context/favoritesContext";
 
 
 
@@ -31,6 +32,7 @@ const AddDrawer= ()=>{
   )
 }
   return (
+    <FavoritesProvider>
 <NavigationContainer>
   <Stack.Navigator screenOptions={{
     headerStyle:{backgroundColor:'#9156ff'},
@@ -45,6 +47,7 @@ const AddDrawer= ()=>{
     <Stack.Screen name="MealDetail" component={MealDetail} />
   </Stack.Navigator>
 </NavigationContainer>
+</FavoritesProvider>
   );
 };
 
